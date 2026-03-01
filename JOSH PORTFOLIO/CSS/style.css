@@ -1,0 +1,373 @@
+:root {
+    --bg: #0a0a0f;
+    --bg-elevated: #12121a;
+    --fg: #e8e8ec;
+    --muted: #6b6b7b;
+    --accent: #00ff88;
+    --accent-dim: rgba(0, 255, 136, 0.15);
+    --card: #16161f;
+    --border: #2a2a3a;
+    --danger: #ff4757;
+    --jkuat-purple: #4a0080;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- BACKGROUND IMAGE SETUP --- */
+/* PASTE YOUR BACKGROUND IMAGE LINK INSIDE url('...') BELOW */
+#myBgImage {
+    position: fixed;
+    inset: 0;
+    background-image: url('IMAGES/jkuat.jpg');
+    /* REPLACE LINK HERE */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    /* Adjust transparency (0.1 = faint, 1.0 = solid) */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Grid Overlay (Keeps the "Tech" look on top of your bg) */
+.grid-overlay {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Orb Effects (Floating lights) */
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.3), transparent);
+    top: -100px;
+    right: -100px;
+    animation: float1 15s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(74, 0, 128, 0.4), transparent);
+    bottom: -50px;
+    left: -50px;
+    animation: float2 18s ease-in-out infinite;
+}
+
+@keyframes float1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-50px, 50px) scale(1.1);
+    }
+}
+
+@keyframes float2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Tabs */
+.semester-tab {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.semester-tab::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+.semester-tab:hover {
+    color: var(--fg);
+    border-color: var(--accent);
+}
+
+.semester-tab.active {
+    color: var(--bg);
+    border-color: var(--accent);
+}
+
+.semester-tab.active::before {
+    transform: scaleX(1);
+}
+
+/* Upload Zone */
+.upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+}
+
+/* Paper Card */
+.paper-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    animation: fadeSlideIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.paper-card:hover {
+    border-color: var(--accent);
+    transform: scale(1.02);
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid transparent;
+    padding: 0.5rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    background: rgba(255, 71, 87, 0.2);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* Badges */
+.type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.type-badge.cat1 {
+    background: rgba(0, 200, 255, 0.2);
+    color: #00c8ff;
+}
+
+.type-badge.cat2 {
+    background: rgba(255, 200, 0, 0.2);
+    color: #ffc800;
+}
+
+.type-badge.mock {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6464;
+}
+
+/* Sub-tabs */
+.sub-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.sub-tab.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .semester-tabs {
+        overflow-x: auto;
+        padding-bottom: 10px;
+        justify-content: flex-start;
+    }
+
+    .semester-tab {
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+
+    .unit-code-badge {
+        font-size: 0.65rem;
+    }
+}
